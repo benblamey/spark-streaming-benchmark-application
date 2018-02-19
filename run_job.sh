@@ -3,7 +3,7 @@
 # python3 setup.py bdist_egg
 
 # rsync dist/spark_streaming_benchmark-0.1-py3.5.egg lovisainstance:~/
-rsync spark_streaming_benchmark/pi_example.py lovisainstance:~/
+rsync spark_streaming_benchmark/word_count_example.py lovisainstance:~/
 
 # Deploy mode:
 # cluster: run remotely, report back console output
@@ -15,7 +15,7 @@ ssh lovisainstance 'SPARK_HOME=~/spark-2.2.1-bin-hadoop2.7 ; \
     $SPARK_HOME/bin/spark-submit \
     --master spark://192.168.1.33:7077 \
     --deploy-mode client \
-    --verbose \
-    --supervise \
-    pi_example.py \
-    1000'
+    word_count_example.py'
+
+#    --supervise \
+#    --verbose \
