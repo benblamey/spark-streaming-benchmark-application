@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-python3 setup.py bdist_egg
+# python3 setup.py bdist_egg
 
-rsync dist/spark_streaming_benchmark-0.1-py3.5.egg lovisainstance:~/
-
+# rsync dist/spark_streaming_benchmark-0.1-py3.5.egg lovisainstance:~/
+rsync spark_streaming_benchmark/pi_example.py lovisainstance:~/
 
 # Deploy mode:
 # cluster: run remotely, report back console output
@@ -17,4 +17,5 @@ ssh lovisainstance 'SPARK_HOME=~/spark-2.2.1-bin-hadoop2.7 ; \
     --deploy-mode client \
     --verbose \
     --supervise \
-    $SPARK_HOME/examples/src/main/python/pi.py 1000'
+    pi_example.py \
+    1000'
