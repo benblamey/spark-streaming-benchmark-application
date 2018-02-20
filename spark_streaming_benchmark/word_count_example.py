@@ -21,7 +21,7 @@ ssc = StreamingContext(sc, 5) # second argument is the batch interval in seconds
 # 9998 tiny text file
 # 9997 nc with stdin
 
-# This needs to be a proper IP address, 'localhost' or '127.0.0.1' doesn't seem to work in 'client' deploy mode.
+# IP address that worker node will connect to (don't use localhost or 127.0.0.1)
 lines = ssc.socketTextStream('192.168.1.33', 9999)
 #lines = ssc.socketTextStream('localhost', 9999)
 
