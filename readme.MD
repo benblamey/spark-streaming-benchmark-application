@@ -1,3 +1,25 @@
+## Streaming Server (haste.benchmarking.streaming_server)
+
+Dummy Server for Benchmarking Streaming Applications.
+Streams lines of text over TCP, and listens for HTTP POSTs to vary parameters.
+
+Start the server:
+```
+python3 -m haste.benchmarking.streaming_server
+```
+
+Connect (and pipe to /dev/null):
+```
+sudo sh ./pipe_9999_to_dev_null
+```
+
+Vary the params:
+```
+curl -X POST "localhost:8008/" --data '{"cpu_pause_ms": 20, "message_bytes": 200,"period_sec": 1.0}'
+```
+
+## Spark Example App
+
 To run:
 
 0. Download Apache Spark and unzip on local machine.
