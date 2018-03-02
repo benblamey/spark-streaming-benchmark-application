@@ -26,7 +26,7 @@ def parse_message(line):
     return {'cpu_pause_ms': int(line[1:7])}
 
 # Copied from pause.py
-def pause(secs):
+def cpu_pause(secs):
     start = time.time()
     while time.time() < start + secs:
         #print('.')
@@ -36,13 +36,14 @@ def pause(secs):
 
 
 def process_line(line):
+    print("line length: %d" % len(line))
     parsed = parse_message(line)
     sleep_ms = parsed['cpu_pause_ms']
-    sleep_s = sleep_ms / 1000
+    sleep_secs = float(sleep_ms) / 1000
+    #print(sleep_secs)
     # Should do some work instead to keep the core busy
     # Spark tracks the cores so think its OK
-    time.sleep(sleep_s)
-
+    cpu_pause(sleep_secs)
 
 lines.map(lambda line: process_line(line)).count().pprint()
 

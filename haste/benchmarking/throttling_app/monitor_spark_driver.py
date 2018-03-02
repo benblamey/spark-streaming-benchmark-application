@@ -71,6 +71,8 @@ if __name__ == '__main__':
         stats = monitor.get_status()
         time.sleep(1)
         #print(stats)
+
+        # Don't use the average -- we want the latest!!!
         print(stats['avgTotalDelay'])
     #
     # parsed = __do_request_GET_applications('localhost', 4040)
