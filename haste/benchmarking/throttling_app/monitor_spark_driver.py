@@ -1,5 +1,6 @@
 import urllib.request
 import json
+import time
 
 
 class SparkMonitor:
@@ -66,14 +67,18 @@ class SparkMonitor:
 if __name__ == '__main__':
     monitor = SparkMonitor('localhost', port=4040)
     monitor.start()
-    stats = monitor.get_status()
+    while True:
+        stats = monitor.get_status()
+        time.sleep(1)
+        #print(stats)
+        print(stats['avgTotalDelay'])
     #
     # parsed = __do_request_GET_applications('localhost', 4040)
     # app_id = parsed[0]['id']
     # print(app_id)
     #
     # stats = __do_request_GET_streaming_statistics('localhost', 4040, app_id)
-    print(stats)
+
     # avg_total_delay = stats['avgTotalDelay']
 
 

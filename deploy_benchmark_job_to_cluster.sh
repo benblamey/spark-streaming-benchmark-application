@@ -3,7 +3,7 @@
 # python3 setup.py bdist_egg
 
 # rsync dist/spark_streaming_benchmark-0.1-py3.5.egg lovisainstance:~/
-rsync spark_streaming_benchmark/streaming_benchmark.py lovisainstance:~/
+rsync streaming_benchmark.py lovisainstance:~/
 
 # Deploy mode:
 # cluster: run remotely, report back console output
@@ -21,3 +21,7 @@ ssh lovisainstance 'SPARK_HOME=~/spark-2.2.1-bin-hadoop2.7 ; \
 
 #    --supervise \
 #    --verbose \
+
+
+
+# this works OK, but fails when run directly because of some issue with env vars for which python to use ?!
