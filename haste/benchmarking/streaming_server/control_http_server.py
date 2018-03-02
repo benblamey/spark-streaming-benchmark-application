@@ -53,6 +53,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     shared_state['params'][key] = body_parsed[key]
                 else:
                     print('missing key in POST data: ' + key)
+            shared_state.regenerate_data()
 
         print('new configuration is: ' + str(shared_state['params']))
 
@@ -66,7 +67,7 @@ def run():
 
 
 def __run():
-    # with not supported in Python3.5:
+    # with not supported in Python3.5 for the httpd object:
     # TODO: migrate to 'with' when ubuntu has 2.6
 
     httpd = http.server.HTTPServer(('', PORT), Handler)
