@@ -1,7 +1,8 @@
 import time
 
 import os
-os.environ['PYSPARK_PYTHON'] = 'python3'
+os.environ['PYSPARK_PYTHON'] = 'python3'  # executors
+os.environ['PYSPARK_DRIVER_PYTHON'] = 'python3'  # driver
 
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
