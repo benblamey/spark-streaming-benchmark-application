@@ -57,7 +57,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         print('new configuration is: ' + str(shared_state['params']))
 
         self._set_response()
-        # self.wfile.write("POST request for {}".format(self.path).encode('utf-8'))
+        self.wfile.write("{'result':'new config applied.'}".encode('utf-8'))
 
 
 def run():
