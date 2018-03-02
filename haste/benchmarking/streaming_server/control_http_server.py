@@ -66,14 +66,17 @@ def run():
 
 
 def __run():
-    with http.server.HTTPServer(('', PORT), Handler) as httpd:
-        print("HTTP control server listening on :", PORT)
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            pass
-        httpd.server_close()
-        print('Stopping httpd...')
+    # with not supported in Python3.5:
+    # TODO: migrate to 'with' when ubuntu has 2.6
+
+    httpd = http.server.HTTPServer(('', PORT), Handler)
+    print("HTTP control server listening on :", PORT)
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        pass
+    httpd.server_close()
+    print('Stopping httpd...')
 
 
 if __name__ == '__main__':
