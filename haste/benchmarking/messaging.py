@@ -8,8 +8,8 @@ RANDOM_100MB = ''.join(list(repeat(RANDOM_1MB, 100 * 1024)))
 
 
 def generate_message(shared_state_copy):
-    return bytes("C%06d-%s\n" % (shared_state_copy['params']['cpu_pause_ms'],
-                               RANDOM_100MB[:(shared_state_copy['params']['message_bytes'] - 8)]),
+    return bytes("C%06d-%s\n" % (shared_state_copy['cpu_pause_ms'],
+                               RANDOM_100MB[:(shared_state_copy['message_bytes'] - 8)]),
                  'UTF-8')
 
 
@@ -18,7 +18,7 @@ def parse_message(line):
 
 
 if __name__ == '__main__':
-    shared_state = {'params': {'cpu_pause_ms': 123, 'message_bytes': 30000000}}
+    shared_state = {'cpu_pause_ms': 123, 'message_bytes': 30000000}
     line = generate_message(shared_state)
 
     if len(line) != 30000000 + 1:  # account for \n

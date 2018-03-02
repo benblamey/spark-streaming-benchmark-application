@@ -39,8 +39,7 @@ class ClientStreamingThread(threading.Thread):
             with shared_state_lock:
                 shared_state_copy = shared_state.copy()
                 # TODO: don't send the exact same string each time (incase Spark caches it)
-                message_to_send = shared_state.message
-
+                message_to_send = shared_state['message']
 
             self.csocket.send(message_to_send)
             message_count = message_count + 1

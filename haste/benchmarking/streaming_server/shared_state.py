@@ -10,9 +10,11 @@ shared_state = {
     }
 }
 
-message = generate_message(shared_state)
 
 def regenerate_data():
-    message = generate_message(shared_state)
+    shared_state['message'] = generate_message(shared_state['params'])
+
+
+regenerate_data()
 
 shared_state_lock = threading.Lock()
