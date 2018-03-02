@@ -25,6 +25,16 @@ lines = ssc.socketTextStream('192.168.1.13', 9999)  # LovisaInstance
 def parse_message(line):
     return {'cpu_pause_ms': int(line[1:7])}
 
+# Copied from pause.py
+def pause(secs):
+    start = time.time()
+    while time.time() < start + secs:
+        #print('.')
+        x = 0
+        for n in range(2000):
+            x = x + 1
+
+
 def process_line(line):
     parsed = parse_message(line)
     sleep_ms = parsed['cpu_pause_ms']

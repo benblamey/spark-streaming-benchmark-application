@@ -3,7 +3,6 @@ import threading
 import time
 from .shared_state import shared_state, shared_state_lock
 from ..messaging import generate_message
-from .pause import pause as pause_secs
 
 REPORT_INTERVAL = 5
 
@@ -53,8 +52,7 @@ class ClientStreamingThread(threading.Thread):
             pause = shared_state_copy['params']['period_sec'] - (ts_after_stream - ts_before_stream)
 
             if pause > 0:
-                pause_secs(pause)
-                #time.sleep(pause)
+                time.sleep(pause)
             else:
                 print('streaming_server: overran target period by ' + str(-pause) + ' seconds!')
 
