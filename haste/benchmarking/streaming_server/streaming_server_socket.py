@@ -24,6 +24,7 @@ class ClientStreamingThread(threading.Thread):
         # self.csocket.send(bytes("Hi, This is from Server..", 'utf-8'))
 
         last_unix_time_interval = 0
+        last_unix_time_second = 0
         message_count = 0
 
         # data = self.csocket.recv(2048)
@@ -36,10 +37,13 @@ class ClientStreamingThread(threading.Thread):
 
             ts_before_stream = time.time()
 
-            with shared_state_lock:
-                shared_state_copy = shared_state.copy()
-                # TODO: don't send the exact same string each time (incase Spark caches it)
-                message_to_send = shared_state['message']
+            if last_unix_time_second != int(ts_before_stream):
+                last_unix_time_second = int(ts_before_stream)
+
+                with shared_state_lock:
+                    shared_state_copy = shared_state.copy()
+                    # TODO: don't send the exact same string each time (incase Spark caches it)
+                    message_to_send = shared_state['message']
 
             self.csocket.send(message_to_send)
             message_count = message_count + 1
