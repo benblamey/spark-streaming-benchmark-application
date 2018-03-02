@@ -10,7 +10,7 @@ ssc = StreamingContext(sc, 1)  # second argument is the batch interval in second
 
 # Port for Streaming Server is 9999
 # IP address that worker node will connect to (don't use localhost or 127.0.0.1 in a cluster context)
-lines = ssc.socketTextStream('192.168.1.33', 9999)  # LovisaInstance
+lines = ssc.socketTextStream('192.168.1.13', 9999)  # LovisaInstance
 #lines = ssc.socketTextStream('localhost', 9999)
 
 

@@ -17,7 +17,7 @@ ssh lovisainstance 'SPARK_HOME=~/spark-2.2.1-bin-hadoop2.7 ; \
     $SPARK_HOME/bin/spark-submit \
     --master spark://192.168.1.33:7077 \
     --deploy-mode client \
-    word_count_example.py'
+    streaming_benchmark.py'
 
 #    --supervise \
 #    --verbose \
