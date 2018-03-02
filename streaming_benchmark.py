@@ -1,6 +1,12 @@
 import time
+
+import os
+os.environ['PYSPARK_PYTHON'] = 'python3'
+
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
+
+
 
 sc = SparkContext(appName="StreamingBenchmark")
 ssc = StreamingContext(sc, 1)  # second argument is the batch interval in seconds.
