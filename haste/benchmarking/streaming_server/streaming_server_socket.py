@@ -1,19 +1,14 @@
 import socket
 import threading
-import random
-import string
 import time
 from .shared_state import shared_state, shared_state_lock
+from ..messaging import generate_message
 
 REPORT_INTERVAL = 5
 
 ALL_HOSTS = ""
 STREAM_PORT = 9999
 CONTROL_PORT = 8889
-
-MAX_MESSAGE_BYTES = 100 * (1000 ^ 2)  # 100MB
-RANDOM_1_MB = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits)
-                      for _ in range(MAX_MESSAGE_BYTES))
 
 class ClientStreamingThread(threading.Thread):
 
@@ -47,10 +42,7 @@ class ClientStreamingThread(threading.Thread):
             # Little too slow here - min period is around 0.0003 seconds.
 
             # TODO: don't send the exact same string each time (incase Spark caches it)
-            message_to_send = bytes("C%06d-%s\n" % (shared_state_copy['params']['cpu_pause_ms'],
-                                                    RANDOM_1_MB[
-                                                    :(shared_state_copy['params']['message_bytes'] - 8)]),
-                                    'UTF-8')
+            message_to_send = generate_message(shared_state_copy)
 
             self.csocket.send(message_to_send)
             message_count = message_count + 1
@@ -70,6 +62,8 @@ class ClientStreamingThread(threading.Thread):
                       + ' , reporting every ' + str(REPORT_INTERVAL) + ' seconds')
 
 
+
+
 # Shared state looks like this:
 # shared_state = {
 #     'params': {
@@ -78,6 +72,7 @@ class ClientStreamingThread(threading.Thread):
 #         'period_sec': 0.0002,
 #     }
 # }
+
 
 def start_streaming_server():
     stream_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
