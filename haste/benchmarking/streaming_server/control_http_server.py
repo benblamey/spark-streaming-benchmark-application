@@ -1,7 +1,7 @@
 import http.server
 import json
 import threading
-from .shared_state import shared_state, shared_state_lock
+from .shared_state import shared_state, shared_state_lock, regenerate_data
 
 PORT = 8080
 
@@ -53,7 +53,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
                     shared_state['params'][key] = body_parsed[key]
                 else:
                     print('missing key in POST data: ' + key)
-            shared_state.regenerate_data()
+            regenerate_data()
 
         print('new configuration is: ' + str(shared_state['params']))
 
